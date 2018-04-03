@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="stylesheet" href="wheretogo.css">
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+</head>
+<body>
+  <a href="../Home/index.html">
+  <img id='header' src="logo.png" alt="logo">
+</a>
+
+<h1>
+Get out of the house to beat the writer's blues!
+</h1>
+
+<h3>
+When you lack inspiration, one of the first things we recommend <br> is to get out of the house and go somewhere calm and inspirational
+</h3>
+
+<p>
+Check out out the cafes and museums we think are the best for getting that creativity going!
+</p>
+
+<div id="map" style="height: 400px; width: 500px;">
+</div>
+<script type="text/javascript">
+    var locations = [
+      ['Covent Garden Grind', 51.5215623, -0.1418729, 4],
+      ['The British Library', 51.5299996, -0.1286335, 5],
+      ['Barbican Center', 51.5200768, -0.0954517, 3],
+      ['The Royal Institution', 51.509604, -0.1596667, 2],
+      ['Bloomsbery Coffee House', 51.525181, -0.1285972, 1]
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(51.525181, -0.143918),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+
+</body>
+</html>
